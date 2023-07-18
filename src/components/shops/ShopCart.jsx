@@ -56,36 +56,34 @@ const ShopCart = ({ shopItems, addToCart }) => {
   return (
     <>
       <div className="box">
-        <div className="product mtop">
-          <div className="img">
-            {/* <span className="discount">{shopItems.discount}% Off</span> */}
-            <img src={shopItems.image} alt="" />
-            <div className="product-like">
-              <label>{count}</label> <br />
-              <i className="fa-regular fa-heart" onClick={increment}></i>
+        <Link to={`/productdetail/${shopItems.id}`}>
+          <div className="product mtop">
+            <div className="img">
+              {/* <span className="discount">{shopItems.discount}% Off</span> */}
+              <img src={shopItems.image} alt="" />
+              <div className="product-like">
+                <label>{count}</label> <br />
+                <i className="fa-regular fa-heart" onClick={increment}></i>
+              </div>
+            </div>
+            <div className="product-details">
+              <h3>{shopItems.productName}</h3>
+              <div className="rate">
+                <i className="fa fa-star"></i>
+                <i className="fa fa-star"></i>
+                <i className="fa fa-star"></i>
+                <i className="fa fa-star"></i>
+                <i className="fa fa-star"></i>
+              </div>
+              <div className="price">
+                <h4>${shopItems.originPrice}.00 </h4>
+                <button onClick={() => addToCart(shopItems)}>
+                  <i className="fa fa-plus"></i>
+                </button>
+              </div>
             </div>
           </div>
-          <div className="product-details">
-            <h3>
-              <Link to={`/productdetail/${shopItems.id}`}>
-                {shopItems.productName}
-              </Link>
-            </h3>
-            <div className="rate">
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-            </div>
-            <div className="price">
-              <h4>${shopItems.originPrice}.00 </h4>
-              <button onClick={() => addToCart(shopItems)}>
-                <i className="fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+        </Link>
       </div>
     </>
   );

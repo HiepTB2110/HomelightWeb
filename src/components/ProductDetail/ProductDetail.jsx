@@ -2,50 +2,58 @@ import React from "react";
 import { Container } from "reactstrap";
 import "./style.css";
 import Cart from "./Cart";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const ProductDetail = ({ CartItem, addToCart, decreaseQty }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://26.30.1.50:8080/api/v1.0/ProductDetail/" +
+          window.location.pathname.substring(15)
+      )
+      .then((response) => {
+        setProducts(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {});
+  }, []);
+
+  const {
+    productName,
+    productCode,
+    originPrice,
+    image,
+    description,
+    publishedDate,
+  } = products;
+
   return (
     <section>
       <Container>
         <div className="row1">
-          {/* <Col lg="8"> */}
           <div className="tour__content">
-            <img
-              src="https://homelight.vn/img/p/den-tha-pha-le-lady045-p4522.jpg"
-              alt=""
-            />
+            <img src={image} alt="" />
 
             <div className="tour__info">
-              <h2>Name</h2>
+              <h2>{productName}</h2>
               <ul className="tour__extra-details">
                 <li>
-                  <i class="ri-creative-commons-nd-line"></i>Mã sản phẩm
+                  <i class="ri-creative-commons-nd-line"></i>Mã sản phẩm:{" "}
+                  {productCode}
                 </li>
                 <li>
                   {" "}
-                  <i class="ri-creative-commons-nd-line"></i>Banner
+                  <i class="ri-creative-commons-nd-line"></i>PublishedDate:{" "}
+                  {publishedDate}
                 </li>
-                <li>
-                  {" "}
-                  <i class="ri-creative-commons-nd-line"></i>Quantity
-                </li>
-                {/* <li> <i class="ri-creative-commons-nd-line"></i>Price</li> */}
-                <li>
-                  {" "}
-                  <i class="ri-creative-commons-nd-line"></i>CreatDate
-                </li>
-                <li>
-                  <i class="ri-creative-commons-nd-line"></i>StartDate
-                </li>
-                <li>
-                  <i class="ri-creative-commons-nd-line"></i>StatusDate
-                </li>
-                {/* <li><i class="ri-creative-commons-nd-line"></i>Update</li> */}
                 <div class="clear"></div>
               </ul>
 
               <div className="bought">
-                <h4>Giá KM: 200.000 đ</h4>
+                <h4>Origin Price: {originPrice}</h4>
                 <Cart
                   CartItem={CartItem}
                   addToCart={addToCart}
@@ -55,11 +63,10 @@ const ProductDetail = ({ CartItem, addToCart, decreaseQty }) => {
 
               <div className="desc">
                 <h5>Description</h5>
-                <p>desc</p>
+                <p>{description}</p>
               </div>
             </div>
           </div>
-          {/* </Col> */}
         </div>
       </Container>
     </section>
