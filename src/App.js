@@ -16,6 +16,7 @@ import AddCategory from "./Admin/CategoryAdmin/AddCategory";
 import CategoryAdmin from "./Admin/CategoryAdmin/CategoryAdmin";
 import Customer from "./Admin/Customer/Customer";
 import CustomerDetail from "./Admin/Customer/CustomerDetail";
+import Login from "./Login/Login";
 function App() {
   /*
   step1 :  const { productItems } = Data 
@@ -66,7 +67,7 @@ function App() {
     // else
     if (productExit.qty === 1) {
       setCartItem(CartItem.filter((item) => item.id !== product.id))
-    } else {
+} else {
       // if product is exit and qty  of that produt is not equal to 1
       // then will run function call setCartItem
       // inside setCartItem we will run map method
@@ -99,6 +100,7 @@ function App() {
           <Route path='/categoryadmin' component={CategoryAdmin} />
           <Route path='/customer' component={Customer} />
           <Route path='/customerdetail/:id' component={CustomerDetail} />
+          <Route path='/login' component={Login} />
         </Switch>
         <Footer />
       </Router>
