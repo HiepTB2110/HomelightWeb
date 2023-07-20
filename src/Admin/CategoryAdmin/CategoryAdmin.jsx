@@ -1,32 +1,27 @@
-import React from 'react'
-import Table from 'react-bootstrap/Table';
-import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
-import './style.css'
-const CategoryAdmin = () => {
-  return (
-    <div className="container_product">
-    <NavbarAdmin />
-     <Table striped bordered hover>
-      <thead>
-        <tr className='table_head'>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td >
-          <i className="action_category ri-edit-2-line"></i>
-          <i className="ri-delete-bin-5-line"></i>
-          </td>
-        </tr>
-      </tbody>
-    </Table>
-    </div>
-  )
-}
+import React from "react";
+import "./style.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import CategoryAdminCard from "./CategoryAdminCard";
 
-export default CategoryAdmin
+const CategoryAdmin = () => {
+  const [Categorys, setCategorys] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://26.30.1.50:8080/api/v1.0/Categories")
+      .then((response) => {
+        // Lưu dữ liệu trả về vào state
+        setCategorys(response.data);
+      })
+      .catch((error) => {});
+  }, []);
+  return (
+    <div className="category category_admin">
+      {Categorys.map((item) => (
+        <CategoryAdminCard item={item} />
+      ))}
+    </div>
+  );
+};
+
+export default CategoryAdmin;

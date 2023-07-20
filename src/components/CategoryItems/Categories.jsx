@@ -5,36 +5,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Categories = () => {
-  // const data = [
-  //   {
-  //     id: 1,
-  //     cateImg: "./images/category/cat1.png",
-  //     cateName: "Đèn Chùm",
-  //     children: [
-  //       {
-  //         id: 2,
-  //         cateName: "Đèn chùm hiện đại",
-  //       },
-  //       {
-  //         id: 3,
-  //         cateName: "Đèn chùm ",
-  //       },
-  //       {
-  //         id: 2,
-  //         cateName: "Đèn chùm khách sạn",
-  //       },
-  //       {
-  //         id: 3,
-  //         cateName: "Đèn chùm khách sạn",
-  //       },
-  //       {
-  //         id: 2,
-  //         cateName: "Đèn chùm khách sạn",
-  //       },
-  //     ],
-  //   },
-  // ];
-
   const [Categorys, setCategorys] = useState([]);
   useEffect(() => {
     axios

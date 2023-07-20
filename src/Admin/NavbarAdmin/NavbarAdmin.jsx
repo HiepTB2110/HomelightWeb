@@ -1,14 +1,15 @@
 import React from 'react'
 import './style.css'
+import { Link } from "react-router-dom";
+
 const NavbarAdmin = () => {
   return (
     <>
       <div className='category category_'>
             <div >
-              <h6>Product</h6>
-              <h6>Category</h6>
-              <h6>Đơn hàng</h6>
-
+              <h6><Link to = "/admin">Product</Link></h6>
+              <h6><Link to = "/categoryadmin">Category</Link></h6>
+              <h6><Link to = "/customer">Đơn hàng</Link></h6>
             </div>
       </div>
     </>

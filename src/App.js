@@ -17,6 +17,9 @@ import CategoryAdmin from "./Admin/CategoryAdmin/CategoryAdmin";
 import Customer from "./Admin/Customer/Customer";
 import CustomerDetail from "./Admin/Customer/CustomerDetail";
 import Login from "./Login/Login";
+import EditCategory from "./Admin/CategoryAdmin/EditCategory";
+
+
 function App() {
   /*
   step1 :  const { productItems } = Data 
@@ -95,8 +98,9 @@ function App() {
             <ProductDetail CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
           </Route>
           <Route path='/admin' component={ProductAdmin} />
-          <Route path='/editproduct' component={EditProduct} />
+          <Route path='/editproduct/:id' component={EditProduct} />
           <Route path='/addcategory' component={AddCategory} />
+          <Route path='/editcategory/:id' component={EditCategory} />
           <Route path='/categoryadmin' component={CategoryAdmin} />
           <Route path='/customer' component={Customer} />
           <Route path='/customerdetail/:id' component={CustomerDetail} />

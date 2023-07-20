@@ -68,13 +68,6 @@ const ShopCart = ({ shopItems, addToCart }) => {
             </div>
             <div className="product-details">
               <h3>{shopItems.productName}</h3>
-              <div className="rate">
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-              </div>
               <div className="price">
                 <h4>${shopItems.originPrice}.00 </h4>
                 <button onClick={() => addToCart(shopItems)}>
