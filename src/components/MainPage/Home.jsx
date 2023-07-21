@@ -1,14 +1,14 @@
 import React from "react"
-import Categories from "./Categories"
 import "./Home.css"
 import SliderHome from "./Slider"
+import SideBar from "./SideBar"
 
 const Home = () => {
   return (
     <>
       <section className='home'>
         <div className='container d_flex'>
-          <Categories />
+          <SideBar />
           <SliderHome />
         </div>
       </section>

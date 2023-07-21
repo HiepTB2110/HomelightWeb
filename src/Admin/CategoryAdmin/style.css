@@ -100,4 +100,17 @@ td {
     color: #6c6c6c;
     /* display: flex; */
   }
-  
+.category_wrap {
+    display: flex;
+    align-items: center;
+    gap: 500px;
+    border-bottom: 1px #908e8e solid;
+}
+.category_wrap span i {
+    font-size: 18px;
+    margin-right: 10px;
+}
+.action_edit {
+    margin-right: 30px;
+}
+

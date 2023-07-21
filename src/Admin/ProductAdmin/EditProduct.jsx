@@ -1,7 +1,49 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import { useState, useEffect } from "react";
+import axios from "axios";
+// import DropdownTreeSelect from "react-dropdown-tree-select";
+import "react-dropdown-tree-select/dist/styles.css";
+import DropdownHOC from "./DropdownHOC";
 
 const EditProduct = () => {
+  const [imageUrl, setImageUrl] = useState("");
+  const [categorysTreeData, setCategorysTreeData] = useState([]);
+
+  const handleImageChange = (e) => {
+    if (e.target.files.length) {
+      const src = URL.createObjectURL(e.target.files[0]);
+      setImageUrl(src);
+    }
+  };
+
+  const transformToTreeData = (categories) => {
+    return categories.map((category) => ({
+      label: category.categoryName,
+      value: category.id.toString(),
+      ...(category.children && {
+        children: transformToTreeData(category.children),
+      }),
+    }));
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://26.30.1.50:8080/api/v1.0/Categories")
+      .then((response) => {
+        // Chuyển đổi dữ liệu phản hồi thành định dạng cây
+        const treeData = transformToTreeData(response.data);
+        setCategorysTreeData(treeData);
+      })
+      .catch((error) => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDropdownChange = (currentNode, selectedNodes) => {
+    // Xử lý dữ liệu ở đây khi có thay đổi từ DropdownHOC
+    console.log("Dữ liệu đã được chọn:", currentNode, selectedNodes);
+  };
+
   return (
     <>
       <h3 className="edit_title">Edit Product</h3>
@@ -47,13 +89,21 @@ const EditProduct = () => {
             <Form.Label>Description</Form.Label>
             <Form.Control as="textarea" rows={3} />
           </Form.Group>
-          <Form.Select aria-label="Default select example">
-            <option>Category</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </Form.Select>
-
+          {/* <Form.Select aria-label="Default select example">
+            <option value="">Select Category</option>
+            {Categorys.map((category) => (
+              <CategoryForm item={category} />
+            ))}
+          </Form.Select> */}
+          {/* <DropdownTreeSelect data={categorysTreeData} />, */}
+          {categorysTreeData.length > 0 ? (
+            <DropdownHOC
+              data={categorysTreeData}
+              onChange={handleDropdownChange}
+            />
+          ) : (
+            <p>Loading categories...</p>
+          )}
           <Form.Label htmlFor="createDate">Create Date</Form.Label>
           <Form.Control
             type="date"
@@ -79,31 +129,11 @@ const EditProduct = () => {
             aria-describedby="passwordHelpBlock"
           />
         </div>
-        {/* <div class="Film__input__file">
-          <div class="input__file">
-            <label for="">Image</label>
-            <div class="Change__inputFile">
-              <img
-               
-                alt=""
-              />
-              <input
-                type="file"
-                class="input-file"
-                accept="image/*"
-                id="Image"
-              />
-            </div>
-          </div>
-        </div> */}
         <div class="image-upload">
           <label for="file-input">
-            <img
-              src="https://homelight.vn/img/p/den-chum-pha-le-opl022-p4520.jpg"
-              alt="Thêm ảnh"
-            />
+            <img src={imageUrl} alt="Thêm ảnh" />
           </label>
-          <input id="file-input" type="file" />
+          <input id="file-input" type="file" onChange={handleImageChange} />
         </div>
       </div>
     </>

@@ -22,15 +22,21 @@ const CategoryAdminCard = ({ item }) => {
         <Link to={`/catedetail/${item.id}`}>
           <div>
             <div className="category-admin category_parent">
-              <span>{item.categoryName}</span>
+              <div className="category_wrap">
+                <span>
+                  {" "}
+                  <i class="ri-arrow-right-s-fill"></i>
+                  {item.categoryName}
+                </span>
 
-              <div className="category_action">
-                <Link to={`/editproduct/${item.id}`}>
-                  <i className="action_edit ri-edit-2-line"></i>
-                </Link>
-                <button onClick={() => handle(item.id)}>
-                  <i className="ri-delete-bin-5-line"></i>
-                </button>
+                <div className="category_action">
+                  <Link to={`/editproduct/${item.id}`}>
+                    <i className="action_edit ri-edit-2-line"></i>
+                  </Link>
+                  <button onClick={() => handle(item.id)}>
+                    <i className="ri-delete-bin-5-line"></i>
+                  </button>
+                </div>
               </div>
               <div className="category-content">
                 {item.children.map((child) => (

@@ -53,10 +53,14 @@ const ShopCart = ({ shopItems, addToCart }) => {
     setCount(count + 1);
   };
 
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0); // Scroll to the top of the page when the link is clicked
+  };
+
   return (
     <>
       <div className="box">
-        <Link to={`/productdetail/${shopItems.id}`}>
+        <Link to={`/productdetail/${shopItems.id}`} onClick={handleLinkClick}>
           <div className="product mtop">
             <div className="img">
               {/* <span className="discount">{shopItems.discount}% Off</span> */}

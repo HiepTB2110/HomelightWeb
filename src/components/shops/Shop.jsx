@@ -318,7 +318,7 @@ const Shop = ({ addToCart, shopItems }) => {
   const [products, setProducts] = useState([]);
   const [categorys, setCategorys] = useState([]);
   const [idcategory, setIdcategory] = useState(1);
-  
+
   useEffect(() => {
     axios
       .get("http://26.30.1.50:8080/api/v1.0/Categories")
@@ -331,13 +331,13 @@ const Shop = ({ addToCart, shopItems }) => {
 
   useEffect(() => {
     axios
-      .get("http://26.30.1.50:8080/api/v1.0/ProductByCategory/" + idcategory)
+      .get("http://26.30.1.50:8080/api/v1.0/bestSellingByCategoryId/" + idcategory)
       .then((response) => {
         // Lưu dữ liệu trả về vào state
         setProducts(response.data);
       })
       .catch((error) => {});
-  },[idcategory]);
+  }, [idcategory]);
   return (
     <section className="shop background">
       <div className="container d_flex container_item">
@@ -370,16 +370,9 @@ const Shop = ({ addToCart, shopItems }) => {
                   </Link>
                 </div>
                 <div className="product-content  grid1">
-                  {/* {data
-                    .filter((shopItems) => {
-                      return shopItems.categoryname.includes(category.category);
-                    })
-                    .map((shopItems) => (
-                      <ShopCart addToCart={addToCart} shopItems={shopItems} />
-                    ))} */}
-                  {products.map((product) => {
+                  {products.map((product, index) => {
                     return (
-                      <ShopCart addToCart={addToCart} shopItems={product} />
+                      <ShopCart key={index} addToCart={addToCart} shopItems={product} />
                     );
                   })}
                 </div>
