@@ -16,7 +16,6 @@ const ProductDetail = ({ CartItem, addToCart, decreaseQty }) => {
       )
       .then((response) => {
         setProducts(response.data);
-        console.log(response.data);
       })
       .catch((error) => {});
   }, []);

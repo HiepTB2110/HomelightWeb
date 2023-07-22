@@ -39,9 +39,9 @@ const EditProduct = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDropdownChange = (currentNode, selectedNodes) => {
-    // Xử lý dữ liệu ở đây khi có thay đổi từ DropdownHOC
-    console.log("Dữ liệu đã được chọn:", currentNode, selectedNodes);
+  const handleCategorySelect = (selectedData) => {
+    // Trong đây, bạn có thể xử lý dữ liệu đã chọn từ cây chọn
+    console.log("Dữ liệu đã chọn:", selectedData);
   };
 
   return (
@@ -89,17 +89,10 @@ const EditProduct = () => {
             <Form.Label>Description</Form.Label>
             <Form.Control as="textarea" rows={3} />
           </Form.Group>
-          {/* <Form.Select aria-label="Default select example">
-            <option value="">Select Category</option>
-            {Categorys.map((category) => (
-              <CategoryForm item={category} />
-            ))}
-          </Form.Select> */}
-          {/* <DropdownTreeSelect data={categorysTreeData} />, */}
           {categorysTreeData.length > 0 ? (
             <DropdownHOC
+              onSelect={handleCategorySelect}
               data={categorysTreeData}
-              onChange={handleDropdownChange}
             />
           ) : (
             <p>Loading categories...</p>

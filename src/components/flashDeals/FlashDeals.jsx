@@ -11,7 +11,7 @@ const FlashDeals = ({ productItems, addToCart }) => {
             <i className='fa fa-bolt'></i>
             <h1>Sản phẩm khuyến mại</h1>
           </div>
-          <FlashCard productItems={productItems} addToCart={addToCart} />
+          <FlashCard addToCart={addToCart} />
         </div>
       </section>
     </>
