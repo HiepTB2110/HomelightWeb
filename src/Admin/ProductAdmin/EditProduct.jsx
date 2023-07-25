@@ -39,12 +39,10 @@ const EditProduct = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const [ancestorsData, setAncestorsData] = useState([]);
-
-  // // Hàm để nhận giá trị ancestors từ component con
-  // const handleAncestorsChange = (ancestors) => {
-  //   setAncestorsData(ancestors);
-  // };
+  const handleCategorySelect = (selectedData) => {
+    console.log("Selected Data:", selectedData);
+    // You can use the selectedData here or update the state, send it to the server, etc.
+  };
 
   return (
     <>
@@ -93,6 +91,7 @@ const EditProduct = () => {
           </Form.Group>
           {categorysTreeData.length > 0 ? (
             <DropdownHOC
+              onSelect={handleCategorySelect}
               data={categorysTreeData}
             />
           ) : (

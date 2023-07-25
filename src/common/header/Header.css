@@ -153,7 +153,11 @@ header ul li a:hover {
   header .link {
     display: none;
   }
-  .close,
+
+  .navlink{
+    display: none;
+  }
+  /* .close,
   .open {
     position: absolute;
     top: 35px;
@@ -165,7 +169,7 @@ header ul li a:hover {
   }
   .close {
     right: 45%;
-  }
+  } */
   .close.home-btn {
     background: linear-gradient(145deg, #e2e8ec, #ffffff);
     color: #ff014f;

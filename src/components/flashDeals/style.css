@@ -14,3 +14,35 @@
 .discount {
   z-index: 2;
 }
+.sale_title {
+  font-size: 16px;
+}
+.origin_title {
+  font-size: 14px;
+  text-decoration: line-through;
+  color: rgb(158, 158, 156);
+}
+@media (max-width: 768px)  {
+  .slick-slide {
+    height: 100%;
+  }
+  .slick-initialized .slick-slide {
+    width: 47% !important;
+    margin: 5px;
+  }
+  .img {
+    height: 190px;
+  }
+  .product_moblie {
+    padding: 20px;
+  }
+  .origin_title{
+    margin: 0;
+  }
+  .heading h1 {
+    font-size: 22px;
+  }
+  .heading i {
+    display: none;
+  }
+}

@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -44,7 +45,7 @@ const FlashCard = ({ productItems, addToCart }) => {
 
   useEffect(() => {
     axios
-      .get("http://26.30.1.50:8080/api/v1.0/Products")
+      .get("http://26.30.1.50:8080/api/v1.0/ProductHasSale")
       .then((response) => {
         // Lưu dữ liệu trả về vào state
         setProducts(response.data);
@@ -58,9 +59,10 @@ const FlashCard = ({ productItems, addToCart }) => {
         {products.map((productItems) => {
           return (
             <div className="box">
+              <Link to={`/productdetail/${productItems.id}`}>
               <div className="product mtop">
                 <div className="img">
-                  <span className='discount'>10% Off</span>
+                  <span className="discount">{productItems.sale.numberSale}%</span>
                   <img
                     className="discount_img"
                     src={productItems.image}
@@ -71,16 +73,27 @@ const FlashCard = ({ productItems, addToCart }) => {
                     <i className="fa-regular fa-heart" onClick={increment}></i>
                   </div>
                 </div>
-                <div className="product-details">
+                <div className="product-details product_moblie">
                   <h3 className="product-name">{productItems.productName}</h3>
+                  <h4 className="origin_title">{productItems.originPrice} đ</h4>
                   <div className="price">
-                    <h4>Giá KM: {productItems.originPrice} đ </h4>
+                    {productItems.sale && (
+                      <div className="price">
+                        <h4 className="sale_title">
+                          {(productItems.originPrice *
+                            (100 - productItems.sale.numberSale)) /
+                            100}{" "}
+                          đ
+                        </h4>
+                      </div>
+                    )}
                     <button onClick={() => addToCart(productItems)}>
                       <i className="fa fa-plus"></i>
-                    </button>
+</button>
                   </div>
                 </div>
               </div>
+              </Link>
             </div>
           );
         })}

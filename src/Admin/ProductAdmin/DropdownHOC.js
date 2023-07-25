@@ -15,6 +15,7 @@ export default class HOC extends Component {
     cloned.splice(0, 0, {
       label: "Select All",
       value: "selectAll",
+      checked: false,
       className: "select-all",
     });
 
@@ -23,115 +24,130 @@ export default class HOC extends Component {
 
   toggleAll = (checked) => {
     const { data } = this.state;
+    // console.log(data)
+    for (var i = 0; i < data.length; i++) {
+      data[i].checked = checked;
+
+      // Check if the node has children and update their checked state as well
+      if (data[i].children && Array.isArray(data[i].children)) {
+        this.toggleChildren(data[i].children, checked);
+      }
+    }
+    this.setState({ data });
+    // console.log(data)
+  };
+
+  // Helper function to recursively toggle the checked state of children nodes
+  toggleChildren = (children, checked) => {
+    for (var i = 0; i < children.length; i++) {
+      children[i].checked = checked;
+      // console.log(children[i].checked)
+
+      // Check if the node has children and update their checked state as well
+      if (children[i].children && Array.isArray(children[i].children)) {
+        this.toggleChildren(children[i].children, checked);
+      }
+    }
+  };
+
+  untoggleAll = (checked) => {
+    const { data } = this.state;
     for (var i = 1; i < data.length; i++) {
       data[i].checked = checked;
     }
     this.setState({ data });
   };
 
-  // toggleParents = (data, value, checked) => {
-  //   alert("d");
-  //   // Tìm nút con có giá trị tương ứng
-  //   // eslint-disable-next-line array-callback-return
-  //   const node = data.find((item) => {
-  //     console.log(item);
-  //   });
-  //   alert("hii");
-  //   // const nodes = data.find((item) => console.log(item));
-
-  //   // Nếu không tìm thấy hoặc không có nút cha, dừng hàm
-  //   if (!node || !node.parent) return;
-
-  //   // Kiểm tra xem tất cả các nút con của nút cha có được tích hay không
-  //   const siblingsChecked = node.parent.children.every(
-  //     (child) => child.checked === true
-  //   );
-
-  //   // Cập nhật trạng thái của nút cha
-  //   node.parent.checked = siblingsChecked;
-
-  //   // Tiếp tục kiểm tra các nút cha lên trên cây
-  //   this.toggleParents(data, node.parent.value, checked);
-  // };
+  expandNode = (node) => {
+    node.expanded = true;
+    if (node.parent) {
+      this.expandNode(node.parent);
+    }
+  };
 
   toggleParents = (data, value, checked) => {
     // Find the node with the given value
-    function findNodesWithValue(node, value, ancestors = []) {
-      if (node.value === value) {
-        console.log("Nút con:", node.value);
-        console.log("Tất cả nút cha:", ancestors);
-        return node.value;
-      }
-
-      ancestors.push(node.value);
-
-      if (node.children && Array.isArray(node.children)) {
-        // Duyệt qua từng nút con và gọi lại hàm findNodesWithValue đối với mỗi nút con
-        node.children.forEach((child) => {
-          findNodesWithValue(child, value, [...ancestors]);
-        });
-      }
-    }
-    const node = data.find((item) => findNodesWithValue(item, value));
+    const node = data.find((item) => item.value === value);
 
     // If the node is not found or there is no parent, stop the function
     if (!node || !node.parent) return;
 
     // Update the checked state of the node
-    node.checked = checked;
-
+    node.checked = true;
+    // console.log(data);
     // Check if all siblings of the current node are checked
-    // const siblingsChecked = node.parent.children.every(
-    //   (child) => child.checked === true
-    // );
-
+    console.log('Hiep ngu ngoc')
+    const siblingsChecked = node.parent.children.some(
+      (child) => child.checked === true
+    );
     // Update the parent's checked state
-    alert("2");
-    node.parent.checked = checked;
+    node.parent.checked = siblingsChecked;
+    if (node.checked) {
+      this.expandNode(node.parent);
+    }
+    
 
-    // Continue to update the parent's ancestors
     this.toggleParents(data, node.parent.value, checked);
   };
 
+  updateParentCheckStatus = (data, node, checked) => {
+    if (node.parent) {
+      // Update parent's checked status
+      node.parent.checked = true;
+
+      // Recursively update ancestors
+      this.updateParentCheckStatus(data, node.parent, checked);
+    }
+  };
+
   handleChange = ({ value, checked }) => {
+    this.untoggleAll(false);
     if (value === "selectAll") {
       this.toggleAll(checked);
     } else {
+      this.toggleAll(false);
       const { data } = this.state;
+      this.toggleParents(data, value, checked);
+      // console.log(data)
+      const cha = [];
       function findNodesWithValue(node, value, ancestors = []) {
+        // console.log(node)
         if (node.value === value) {
-          console.log("Nút con:", node.value);
+          console.log("Nút con:", node);
           console.log("Tất cả nút cha:", ancestors);
-          return true; // Trả về true nếu tìm thấy nút có giá trị cần tìm
+          // for(var i = 1; i <ancestors.length; i++) {
+          //   cha.push(ancestors)
+          // }
+          cha.push(ancestors);
+          // cha.push(ancestors[ancestors.length-2]);
         }
-
-        ancestors.push(node.value);
-
+        ancestors.push(node);
         if (node.children && Array.isArray(node.children)) {
           // Duyệt qua từng nút con và gọi lại hàm findNodesWithValue đối với mỗi nút con
-          for (const child of node.children) {
-            if (findNodesWithValue(child, value, [...ancestors])) {
-              return true; // Nếu tìm thấy nút trong các nút con, trả về true
-            }
-          }
+          node.children.forEach((child) => {
+            findNodesWithValue(child, value, [...ancestors]);
+          });
         }
-
-        return false; // Trả về false nếu không tìm thấy nút có giá trị cần tìm trong các nút con
       }
 
       // Sử dụng hàm find để tìm nút có giá trị cần tìm (đây là đoạn mã bạn đã cung cấp)
       const node = data.find((item) => findNodesWithValue(item, value));
-      console.log(node.value);
-      // console.log(value)
-      // Verify that the node exists before updating its 'checked' property
-
-      if (node.value) {
+      console.log(cha);
+      cha.forEach((parentNodes) => {
+        parentNodes.forEach((parentNode) => {
+          parentNode.checked = true;
+          console.log(parentNode.checked);
+        });
+      });
+      if (node) {
         console.log(node);
-        node.checked = checked;
+        node.checked = true;
 
         // Cập nhật trạng thái của nút cha nếu có
-        alert("3");
-        this.toggleParents(data, node.parent.value, checked);
+        if (node.parent) {
+          this.toggleParents(data, node.parent.value, checked);
+          console.log(node.parent);
+        }
 
         this.setState({ data });
         this.setState({ data }, () => {

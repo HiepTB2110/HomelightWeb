@@ -7,9 +7,7 @@ import Search from "./Search"
 const Header = ({ CartItem }) => {
   return (
     <>
-      {/* <Head /> */}
       <Search CartItem={CartItem} />
-      {/* <Navbar /> */}
     </>
   )
 }
