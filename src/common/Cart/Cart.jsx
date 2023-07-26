@@ -105,7 +105,11 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" />
+                <Form.Control
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
+                />
               </Form.Group>
               <Form.Group
                 className="mb-3"
@@ -114,6 +118,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                 <Form.Label>Số điện thoại</Form.Label>
                 <Form.Control
                   type="text"
+                  id="phone"
                   placeholder="Nhập số điện thoại của bạn..."
                 />
               </Form.Group>
@@ -124,7 +129,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                 <Form.Label>Arrived</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Bạn muốn giao đến đâu?"
+                  id="arrived"
+                  placeholder="Nhập tên của bạn..."
                 />
               </Form.Group>
             </Form>

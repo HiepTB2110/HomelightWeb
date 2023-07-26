@@ -8,7 +8,7 @@ const CateProdetail = ({ addToCart, productItems, shopItems }) => {
   return (
     <>
       <FlashDeals productItems={productItems} addToCart={addToCart} />
-      <div className="category_detail">
+      <div className="category_detail category_mobile">
         <SideBar />
         <Product shopItems={shopItems} addToCart={addToCart} />
       </div>

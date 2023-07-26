@@ -116,6 +116,9 @@ button {
 .mtop {
   margin-top: 40px;
 }
+.heading {
+  align-items: center;
+}
 .heading i {
   color: #e94560;
   margin: 10px;
