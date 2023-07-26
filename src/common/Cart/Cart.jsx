@@ -1,6 +1,8 @@
 import React from "react";
 import "./style.css";
 import axios from "axios";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
@@ -16,7 +18,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
     var email = document.getElementById("email").value;
     var arrived = document.getElementById("arrived").value;
     var phone = document.getElementById("phone").value;
-    console.log(CartItem)
+    console.log(CartItem);
     axios
       .post(
         "http://26.30.1.50:8080/api/v1.0/Order",
@@ -37,7 +39,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
         navigate.push(`/account`);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -45,9 +47,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
   return (
     <>
       <section className="cart-items">
-        <div className="container d_flex">
-          {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
-
+        <div className="container d_flex container_mobile">
           <div className="cart-details">
             {CartItem.length === 0 && (
               <h1 className="no-items product">No Items are add in Cart</h1>
@@ -99,16 +99,46 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
 
           <div className="cart-total product">
             <h2>Cart Summary</h2>
-            <div className=" d_flex">
+            <Form>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="name@example.com" />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Số điện thoại</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Nhập số điện thoại của bạn..."
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Arrived</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Bạn muốn giao đến đâu?"
+                />
+              </Form.Group>
+            </Form>
+            <div className=" d_flex total_price">
               <h4>Total Price :</h4>
               <h3>${totalPrice}.00</h3>
             </div>
-            <input id="email" type="email" placeholder="Email" />
-            <input type="text" id="arrived" placeholder="Arrived" />
-            <input type="text" id="phone" placeholder="Phone" />
-            <button onClick={() => handleBuy()} className="secondary__btn">
-              Buy
-            </button>
+            <Button
+              className="button_max button_mobile"
+              variant="danger"
+              onClick={handleBuy}
+            >
+              Buy Now
+            </Button>{" "}
           </div>
         </div>
       </section>

@@ -30,7 +30,7 @@ const CategoryAdminCard = ({ item }) => {
                 </span>
 
                 <div className="category_action">
-                  <Link to={`/editproduct/${item.id}`}>
+                  <Link to={`/editcategory/${item.id}`}>
                     <i className="action_edit ri-edit-2-line"></i>
                   </Link>
                   <button onClick={() => handle(item.id)}>

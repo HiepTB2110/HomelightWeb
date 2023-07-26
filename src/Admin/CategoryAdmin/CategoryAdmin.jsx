@@ -3,6 +3,7 @@ import "./style.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CategoryAdminCard from "./CategoryAdminCard";
+import { Link } from "react-router-dom";
 
 const CategoryAdmin = () => {
   const [Categorys, setCategorys] = useState([]);
@@ -17,6 +18,7 @@ const CategoryAdmin = () => {
   }, []);
   return (
     <div className="category category_admin">
+      <Link to="/addcategory">New</Link>
       {Categorys.map((item) => (
         <CategoryAdminCard item={item} />
       ))}

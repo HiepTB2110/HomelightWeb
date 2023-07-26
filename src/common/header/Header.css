@@ -15,8 +15,11 @@
 /*------search-----------*/
 .search {
   padding: 16px 0;
-  background: #fff;
-  
+  position: sticky;
+  top: 0;
+  background-color: #ffffff; /* You can change the background color as needed */
+  z-index: 100; /* Adjust the z-index value based on your layout needs */
+  /* box-shadow: -1px 15px 17px -8px rgba(0, 0, 0, 0.1); */
 }
 .search .logo img {
   width: auto;
@@ -126,6 +129,28 @@ header ul li a:hover {
 .header_navbar {
   justify-content: flex-end;
 }
+.toggle {
+  display: none;
+}
+/* Contact */
+.contact_phone {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-right: 40px;
+}
+.contact_img {
+  width: 38px;
+  height: 38px;
+  background: rgb(233, 69, 96);
+  border-radius: 5px;
+  text-align: center;
+}
+.contact_img i {
+  font-size: 30px;
+  color: #fff;
+  line-height: 38px;
+}
 
 @media (max-width: 768px) {
   header ul {
@@ -135,7 +160,8 @@ header ul li a:hover {
     position: absolute;
     display: block;
     list-style: none;
-    box-shadow: rgba(50, 50, 93, 0.23) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    box-shadow: rgba(50, 50, 93, 0.23) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     left: 0;
     top: 0;
     transition: all 0.5s ease-in-out;
@@ -153,10 +179,6 @@ header ul li a:hover {
   header .link {
     display: none;
   }
-
-  .navlink{
-    display: none;
-  }
   /* .close,
   .open {
     position: absolute;
@@ -166,10 +188,10 @@ header ul li a:hover {
     display: block;
     font-size: 25px;
     z-index: 999;
-  }
+  } */
   .close {
     right: 45%;
-  } */
+  }
   .close.home-btn {
     background: linear-gradient(145deg, #e2e8ec, #ffffff);
     color: #ff014f;
@@ -181,5 +203,14 @@ header ul li a:hover {
   }
   .header.active {
     height: 10vh;
+  }
+  .contact_phone {
+    margin-right: 20px;
+  }
+  .contact_img {
+    display: none;
+  }
+  .contact_form {
+    font-size: 14px;
   }
 }

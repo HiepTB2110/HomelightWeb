@@ -39,6 +39,7 @@ const ProductAdmin = () => {
   return (
     <div className="container_product">
       <NavbarAdmin />
+      <Link to="/addproduct">New</Link>
       <Table striped bordered hover>
         <thead>
           <tr className="table_head">

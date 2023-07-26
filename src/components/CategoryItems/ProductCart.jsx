@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProductCart = ({ shopItems, addToCart }) => {
   const [count, setCount] = useState(0);
@@ -19,7 +20,9 @@ const ProductCart = ({ shopItems, addToCart }) => {
             </div>
           </div>
           <div className="product-details">
-            <h3>{shopItems.productName}</h3>
+            <Link to={`/productdetail/${shopItems.id}`}>
+              <h3>{shopItems.productName}</h3>
+            </Link>
             <div className="rate">
               <i className="fa fa-star"></i>
               <i className="fa fa-star"></i>

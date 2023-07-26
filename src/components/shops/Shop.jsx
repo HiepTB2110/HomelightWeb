@@ -331,7 +331,9 @@ const Shop = ({ addToCart, shopItems }) => {
 
   useEffect(() => {
     axios
-      .get("http://26.30.1.50:8080/api/v1.0/bestSellingByCategoryId/" + idcategory)
+      .get(
+        "http://26.30.1.50:8080/api/v1.0/bestSellingByCategoryId/" + idcategory
+      )
       .then((response) => {
         // Lưu dữ liệu trả về vào state
         setProducts(response.data);
@@ -362,17 +364,21 @@ const Shop = ({ addToCart, shopItems }) => {
                       );
                     })}
                   </div>
-                  <Link to="/catedetail">
-                    <div className="heading-right row ">
+                  <div className="heading-right row ">
+                    <Link to="/catedetail">
                       <span className="heading-right_text">View all</span>
                       <i className="fa-solid fa-caret-right"></i>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 </div>
                 <div className="product-content  grid1">
                   {products.map((product, index) => {
                     return (
-                      <ShopCart key={index} addToCart={addToCart} shopItems={product} />
+                      <ShopCart
+                        key={index}
+                        addToCart={addToCart}
+                        shopItems={product}
+                      />
                     );
                   })}
                 </div>

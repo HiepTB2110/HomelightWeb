@@ -76,7 +76,7 @@ export default class HOC extends Component {
     node.checked = true;
     // console.log(data);
     // Check if all siblings of the current node are checked
-    console.log('Hiep ngu ngoc')
+    console.log("Hiep ngu ngoc");
     const siblingsChecked = node.parent.children.some(
       (child) => child.checked === true
     );
@@ -85,7 +85,6 @@ export default class HOC extends Component {
     if (node.checked) {
       this.expandNode(node.parent);
     }
-    
 
     this.toggleParents(data, node.parent.value, checked);
   };
@@ -108,56 +107,40 @@ export default class HOC extends Component {
       this.toggleAll(false);
       const { data } = this.state;
       this.toggleParents(data, value, checked);
-      // console.log(data)
+
       const cha = [];
       function findNodesWithValue(node, value, ancestors = []) {
-        // console.log(node)
         if (node.value === value) {
-          console.log("Nút con:", node);
-          console.log("Tất cả nút cha:", ancestors);
-          // for(var i = 1; i <ancestors.length; i++) {
-          //   cha.push(ancestors)
-          // }
           cha.push(ancestors);
-          // cha.push(ancestors[ancestors.length-2]);
         }
         ancestors.push(node);
         if (node.children && Array.isArray(node.children)) {
-          // Duyệt qua từng nút con và gọi lại hàm findNodesWithValue đối với mỗi nút con
           node.children.forEach((child) => {
             findNodesWithValue(child, value, [...ancestors]);
           });
         }
       }
 
-      // Sử dụng hàm find để tìm nút có giá trị cần tìm (đây là đoạn mã bạn đã cung cấp)
       const node = data.find((item) => findNodesWithValue(item, value));
       console.log(cha);
+
       cha.forEach((parentNodes) => {
         parentNodes.forEach((parentNode) => {
           parentNode.checked = true;
-          console.log(parentNode.checked);
         });
       });
+
       if (node) {
         console.log(node);
         node.checked = true;
-
-        // Cập nhật trạng thái của nút cha nếu có
         if (node.parent) {
           this.toggleParents(data, node.parent.value, checked);
           console.log(node.parent);
         }
 
         this.setState({ data });
-        this.setState({ data }, () => {
-          // Call the onSelect callback with the selected data
-          if (this.props.onSelect) {
-            const selectedData = this.getSelectedData(data);
-            this.props.onSelect(selectedData);
-          }
-        });
       }
+      this.props.updateChaArray(cha);
     }
   };
 

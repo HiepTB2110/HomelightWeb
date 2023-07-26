@@ -18,6 +18,7 @@ import Customer from "./Admin/Customer/Customer";
 import CustomerDetail from "./Admin/Customer/CustomerDetail";
 import Login from "./Login/Login";
 import EditCategory from "./Admin/CategoryAdmin/EditCategory";
+import AddProduct from "./Admin/ProductAdmin/AddProduct";
 
 
 function App() {
@@ -100,6 +101,7 @@ function App() {
           <Route path='/admin' component={ProductAdmin} />
           <Route path='/editproduct/:id' component={EditProduct} />
           <Route path='/addcategory' component={AddCategory} />
+          <Route path='/addproduct' component={AddProduct} />
           <Route path='/editcategory/:id' component={EditCategory} />
           <Route path='/categoryadmin' component={CategoryAdmin} />
           <Route path='/customer' component={Customer} />

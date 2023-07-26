@@ -1,5 +1,4 @@
 import React from "react";
-import "./styleCart.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -21,12 +20,12 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
 
   const {
     id,
-    productName,
-    productCode,
-    originPrice,
-    image,
-    description,
-    publishedDate,
+    // productName,
+    // productCode,
+    // originPrice,
+    // image,
+    // description,
+    // publishedDate,
   } = product;
 
   // prodcut qty total

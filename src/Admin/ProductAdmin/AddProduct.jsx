@@ -1,15 +1,13 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import "./style.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import CategoryForm from "./CategoryForm";
-import "react-dropdown-tree-select/dist/styles.css";
-import DropdownHOC from "./DropdownHOC";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const EditProduct = () => {
+const AddProductjsx = () => {
   const [imageUrl, setImageUrl] = useState("");
-  const [categorysTreeData, setCategorysTreeData] = useState([]);
   const [cate, setCate] = useState([]);
 
   const handleImageChange = (e) => {
@@ -19,46 +17,15 @@ const EditProduct = () => {
     }
   };
 
-  const transformToTreeData = (categories) => {
-    return categories.map((category) => ({
-      label: category.categoryName,
-      value: category.id.toString(),
-      ...(category.children && {
-        children: transformToTreeData(category.children),
-      }),
-    }));
-  };
-
   useEffect(() => {
     axios
       .get("http://26.30.1.50:8080/api/v1.0/Categories")
       .then((response) => {
         setCate(response.data);
-        const treeData = transformToTreeData(response.data);
-        setCategorysTreeData(treeData);
       })
       .catch((error) => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // const [chaArray, setChaArray] = useState([]); // Step 1: Define the state variable
-
-  // function updateNodeValue(node, targetValue, newValue) {
-  //   if (node.value === targetValue) {
-  //     node.value = newValue;
-  //     return;
-  //   }
-
-  //   for (const child of node.children) {
-  //     updateNodeValue(child, targetValue, newValue);
-  //   }
-  // }
-
-  // Step 2: Create a function to update the state variable
-  // const updateChaArray = (cha) => {
-  //   setChaArray(cha);
-  //   console.log("hi");
-  // };
 
   const navigate = useHistory();
 
@@ -85,10 +52,8 @@ const EditProduct = () => {
     formData.append("image", image.files[0]);
     formData.append("categoryId", category);
     var tokenn = localStorage.getItem("token");
-    var id = window.location.pathname.substring(13);
-    alert(id);
     axios
-      .put("http://26.30.1.50:8080/api/v1.0/ProductDetail/" + id, formData, {
+      .post("http://26.30.1.50:8080/api/v1.0/Product", formData, {
         headers: {
           Authorization: "Bearer " + tokenn,
         },
@@ -129,13 +94,6 @@ const EditProduct = () => {
             <Form.Label>Description</Form.Label>
             <Form.Control id="description" as="textarea" rows={3} />
           </Form.Group>
-          <h3>Chọn Category cần thay thế</h3>
-          {categorysTreeData.length > 0 ? (
-            <DropdownHOC data={categorysTreeData} />
-          ) : (
-            <p>Loading categories...</p>
-          )}
-          <h3>Chọn Category thay thế</h3>
           <select id="Category">
             {cate.map((item, index) => (
               <CategoryForm key={index} item={item} />
@@ -154,4 +112,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default AddProductjsx;
